@@ -1,0 +1,6 @@
+Host stash.ops.aol.com
+  Hostname stash.ops.aol.com
+  Port 2022
+  User git
+  IdentityFile ~/.ssh/id_rsa_stash
+  IdentitiesOnly yes

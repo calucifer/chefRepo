@@ -1,0 +1,1 @@
+default['sshdata']['ssh_dir'] = '/home/dmps/.ssh'

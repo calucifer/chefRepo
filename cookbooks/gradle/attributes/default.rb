@@ -1,0 +1,5 @@
+default["gradle"]["archive"] = "gradle-1.10-bin.zip"
+default["gradle"]["install_dir"] = "/usr/local/lib/"
+default["gradle"]["extracted_dir"] = "/usr/local/lib/gradle-1.10"
+default["gradle"]["symlink_source"] = "/usr/local/lib/gradle-1.10/bin/gradle"
+default["gradle"]["symlink_target"] = "/usr/bin/gradle"

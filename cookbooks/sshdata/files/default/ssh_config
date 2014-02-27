@@ -1,0 +1,19 @@
+Host cvs.cm.aol.com git.cm.aol.com svn.cm.aol.com xfer.cm.aol.com
+  Port 1022
+  Protocol 2
+  BatchMode yes
+  GSSAPIAuthentication=yes
+  GSSAPIKeyExchange=yes
+  PubkeyAuthentication no
+  RSAAuthentication no
+  ChallengeResponseAuthentication no
+  RhostsRSAAuthentication no
+  PasswordAuthentication no
+  HostbasedAuthentication no
+  PreferredAuthentications gssapi-keyex,gssapi-with-mic
+
+Host *
+  GSSAPIAuthentication yes
+  GSSAPIKeyExchange yes
+  GSSAPIDelegateCredentials yes
+
