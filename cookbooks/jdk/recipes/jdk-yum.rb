@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: jdk
-# Recipe:: default
+# Recipe:: jdk-yum
 #
 # Copyright 2014, AOL
 #
@@ -20,11 +20,11 @@ ruby_block "publish-jdk-version" do
   action :create
 end
 
-java_home = node['jdk']['rhel']['java_home']
-java_profile = node['jdk']['profile']
+java_home = ['jdk']['rhel']['java_home']
+java_profile = ['jdk']['profile']
 
 file java_profile do
-  content "export JAVA_HOME=#{java_home}/"
+  content "export JAVA_HOME=#{java_home}/\nexport PATH=${PATH}:${JAVA_HOME}/bin\n"
   mode "0755"
   action :create_if_missing
 end

@@ -1,0 +1,23 @@
+[epel]
+name=Extra Packages for Enterprise Linux $releasever - $basearch
+baseurl=http://hcm-vendor.ops.aol.com:8080/yum/epel/$releasever/$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux $releasever - $basearch - Debug
+baseurl=http://hcm-vendor.ops.aol.com:8080/yum/epel/$releasever/$basearch/debug
+failovermethod=priority
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+gpgcheck=1
+
+[epel-source]
+name=Extra Packages for Enterprise Linux $releasever - $basearch - Source
+baseurl=http://hcm-vendor.ops.aol.com:8080/yum/epel/$releasever/SRPMS
+failovermethod=priority
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+gpgcheck=1

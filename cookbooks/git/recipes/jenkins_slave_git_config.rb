@@ -5,14 +5,20 @@
 # Copyright 2014, AOL
 #
 # All rights reserved - Do Not Redistribute
-
-jenkinsUser 	= Chef::EncryptedDataBagItem.load('users', 'jenkins_user')
-jenkinsGroup	= Chef::EncryptedDataBagItem.load('groups', 'jenkins_group')
+bag_jenkins_user	= data_bag_item('users', 'jenkins_user')
+jenkins_user		= bag_jenkins_user[node.chef_environment]['name']
+jenkinsUserHome		= bag_jenkins_user[node.chef_environment]['home']
+jenkinsUserGroup	= bag_jenkins_user[node.chef_environment]['gid']
 
 cookbook_file "gitconfig" do
-	path	"#{jenkinsUser[node.chef_environment]["home"]}/#{node['git']['config']['file']}" 
+	path	"#{jenkinsUserHome}/#{node['git']['config']['file']}" 
 	action	:create
 	mode	'0664'
-	owner	jenkinsUser[node.chef_environment]["name"]
-	group	jenkinsUser[node.chef_environment]["gid"]
+	owner	"#{jenkins_user}"
+	group	"#{jenkinsUserGroup}"
 end
+
+
+
+	
+	

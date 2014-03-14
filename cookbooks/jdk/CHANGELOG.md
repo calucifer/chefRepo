@@ -2,7 +2,10 @@ jdk CHANGELOG
 =============
 
 This file is used to list changes made in each version of the jdk cookbook.
-
+0.1.4 (2014-03-03)
+------------------
+- [Steven Satelle] - 	CHanged rhel method to be hcmbcs as jdk in yum wrong version 
+						  						  
 0.1.3 (2014-02-21)
 ------------------
 - [Steven Satelle] - 	Added in option of installing to debian (dpkg) hosts - uses ***pubic scripts to download*** the jdk from oracle and auto accepts the licence 

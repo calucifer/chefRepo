@@ -1,0 +1,121 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository/>
+  <interactiveMode/>
+  <usePluginRegistry/>
+  <offline/>
+  <pluginGroups>
+    <pluginGroup>net.thucydides.maven.plugins</pluginGroup>
+  </pluginGroups>
+  <servers>
+	  <server>
+		<id>TomcatServer</id>
+		<username>tomcat</username>
+		<password>tomcat</password>
+	  </server>
+  </servers>
+
+  <mirrors>
+    <mirror>
+      <id>aol-depot-mirror</id>
+      <name>AOL CM Depot Nexus Repository Manager (Depot.cm.aol.com)</name>
+      <url>http://depot.cm.aol.com/nexus/content/groups/public</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aol-nexus-mirror</id>
+      <name>AOL CM Nexus Repository Manager</name>
+      <url>http://cmmaven.cm.aol.com:8081/nexus/content/groups/public</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aol-main-static-old</id>
+      <name>AOL CM Static Website - OLD Maven Repositories</name>
+      <url>http://maven.cm.aol.com</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+  
+  <!-- localRepository>${TOP}/.m2_repository</localRepository -->
+  
+	<profiles>
+		<profile>
+			<id>aol-nexus-0001</id>
+			<repositories>
+				<repository>
+					<id>aol-depot-nexus</id>
+					<name>AOL CM Depot Nexus Repository Manager (Depot.cm.aol.com)</name>
+					<url>http://depot.cm.aol.com/nexus/content/groups/public</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>aol-main-nexus</id>
+					<name>AOL CM Nexus Repository Manager</name>
+					<url>http://cmmaven.cm.aol.com:8081/nexus/content/groups/public</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>aol-main-static-old</id>
+					<name>AOL CM Static Website - OLD Maven Repositories</name>
+					<url>http://maven.cm.aol.com</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>aol-depot-plugins-nexus</id>
+					<name>AOL CM Depot Nexus Repository Manager (Depot.cm.aol.com)</name>
+					<url>http://depot.cm.aol.com/nexus/content/groups/public</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
+					<id>aol-plugins-nexus</id>
+					<name>AOL CM Nexus Repository Manager (Plugins)</name>
+					<url>http://cmmaven.cm.aol.com:8081/nexus/content/groups/public</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
+					<id>aol-main-static-old</id>
+					<name>AOL CM Static Website - OLD Maven Repositories</name>
+					<url>http://maven.cm.aol.com</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>aol-nexus-0001</activeProfile>
+	</activeProfiles>
+</settings>

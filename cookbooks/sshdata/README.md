@@ -1,17 +1,14 @@
 sshdata Cookbook
 ================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+This cookbook sets up ssh keys and authorized_host files
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
-#### packages
-- `toaster` - sshdata needs toaster to brown your bagel.
+The user must exist on the system
+Data Bags:
+	jenkins_slave_ssh_keys
+	jenkins_stash_ssh_keys
+	targeting-jenkins_ssh_keys
 
 Attributes
 ----------
@@ -37,7 +34,8 @@ e.g.
 Usage
 -----
 #### sshdata::default
-TODO: Write usage instructions for each cookbook.
+#### sshdata::jenkins-build-slave-ssh - configures the ssh keys for the jkins-atp user, adds personal keys, stash access keys and ***SETS** authorized_hosts file to targeting-jenkins   
+sshdata::jenkins-build-slave-ssh 
 
 e.g.
 Just include `sshdata` in your node's `run_list`:

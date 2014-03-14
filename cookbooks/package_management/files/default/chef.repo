@@ -1,0 +1,7 @@
+[chef]
+name=Chef Omnibus Packages for Enterprise Linux $releasever - $basearch
+baseurl=http://hcm-vendor.ops.aol.com:8080/chef/$releasever/$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL

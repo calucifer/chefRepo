@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: jdk
-# Recipe:: default
+# Recipe:: jdk-hcmbcs
 #
 # Copyright 2014, AOL
 #
@@ -25,8 +25,8 @@ end
 directory "/usr/java/" do
   owner "root"
   group "root"
-  mode 00755
-  action :create
+  mode 	"0755"
+  :create
 end
 
 link "#{java_home}" do
@@ -35,7 +35,7 @@ link "#{java_home}" do
 end
 
 file java_profile do
-  content "export JAVA_HOME=#{jdk_home}"
+  content "export JAVA_HOME=#{java_home}/\nexport PATH=${PATH}:${JAVA_HOME}/bin\n"
   mode "0755"
   action :create_if_missing
 end

@@ -1,6 +1,5 @@
 [user]
         email = atp_jenkins@teamaol.com
         name = ATP Jenkins User
-[push]
-        default = simple
+
         
