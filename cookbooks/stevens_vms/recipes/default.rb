@@ -12,3 +12,14 @@ package "aptitude" do
 	end
 end	
 
+
+package "locate" do
+	package_name case node['platform_family']
+	when 'debian'
+		'locate'
+	end
+end	                     
+
+execute "updatedb" do
+	action	:run
+end	          

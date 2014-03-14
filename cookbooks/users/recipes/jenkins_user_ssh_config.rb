@@ -5,7 +5,7 @@
 # Copyright 2014, Aol
 #
 
-jenkinsUser 			= Chef::EncryptedDataBagItem.load('users', 'jenkins_user')
+jenkinsUser 			= data_bag_item('users', 'jenkins_user')
 jenkinsSlaveSSHKeys 	= Chef::EncryptedDataBagItem.load('ssh_keys', 'jenkins_slave_ssh_keys')
 jenkinsStashSSHKeys 	= Chef::EncryptedDataBagItem.load('ssh_keys', 'jenkins_stash_ssh_keys')
 jenkinsMasterSSHKeys 	= Chef::EncryptedDataBagItem.load('ssh_keys', 'jenkins_master_ssh_keys')

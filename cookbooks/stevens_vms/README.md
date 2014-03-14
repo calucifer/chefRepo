@@ -2,6 +2,9 @@ stevens_vms Cookbook
 ====================
 This cookbook will do various vm setup taks for me
 At the moment it just installs aptitude if the machine is of the debian family
+also installs the locate package and runs 'updatedb'
+
+It sets the ssh 
 
 Requirements
 ------------

@@ -40,4 +40,7 @@ end
 service "vncserver" do
 	action	:enable
 end
-                                                  
+
+service "vncserver" do
+	action	:start
+end

@@ -2,7 +2,12 @@ tomcat CHANGELOG
 ================
 
 This file is used to list changes made in each version of the tomcat cookbook.
-
+0.1.5(14-03-2014)
+-----
+- [Steven Satelle] - couldn't set properties in data bag (limit of 2 levels on bags) so moved all settings out of data bags and into attibutes
+0.1.4(14-03-2014)
+-----
+- [Steven Satelle] - updated to also install on debian family hosts (needed for cicd testing env)
 0.1.3(12-03-2014)
 -----
 - [Steven Satelle] - updated instance script to create multiple instances using data bag (tomcat) settings

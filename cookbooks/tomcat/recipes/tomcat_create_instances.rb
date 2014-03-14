@@ -10,9 +10,8 @@ user_name			= users_bag[node.chef_environment]["name"]
 user_group 			= users_bag[node.chef_environment]["gid"]
 user_home 			= users_bag[node.chef_environment]["home"] 
 
-tomcat_settings 		= data_bag_item('applications', 'tomcat')
-catalina_home 		= tomcat_settings[node.chef_environment]["catalina_home"]
-catalina_base_parent	= tomcat_settings[node.chef_environment]["catalina_base_folder"]
+catalina_home 		= node['tomcat'][node.platform_family][node.chef_environment]['catalina_home']
+catalina_base_parent	=node['tomcat'][node.platform_family][node.chef_environment]['catalina_base_folder']
 
 directory "#{user_home}/#{catalina_base_parent}" do
 	owner	"#{user_name}"

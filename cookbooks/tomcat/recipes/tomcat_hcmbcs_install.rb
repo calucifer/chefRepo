@@ -1,42 +1,34 @@
 #
 # Cookbook Name:: 	
-# Recipe:: default
+# Recipe:: tomcat_hcmbcs_install
 #
 # Copyright 2014, Aol
 #
 
-sysProps = data_bag_item('system_properties', "#{node.platform_family}")
-tomcat_settings = data_bag_item('applications', 'tomcat')
-catalina_home = tomcat_settings[node.chef_environment]['catalina_home']
-catalina_base = tomcat_settings[node.chef_environment]['catalina_base']
+tomcat_build 	= node['tomcat']['rhel']['install']['build']
+tomcat_package	= node['tomcat']['rhel']['install']['package']
+tomcat_release 	= node['tomcat']['rhel']['install']['release']
+tomcat_lifecycle	= node['tomcat']['rhel']['install']['lifecycle']
 
-if platform_family?("rhel")
-	tomcat_install 		= node['tomcat']['hcmbcs']['tomcat_install']
-	
-	tomcat_build 		= node['tomcat']['hcmbcs']['build']
-	tomcat_package 		= node['tomcat']['hcmbcs']['package']
-	tomcat_release 		= node['tomcat']['hcmbcs']['release']
-	tomcat_lifecycle	= node['tomcat']['hcmbcs']['lifecycle']
+tomcat_install 	= node['tomcat']['rhel']['install']['tomcat_install']
+catalina_home 	= node['tomcat']['rhel']['cicd']['catalina_home']
+
+hcmbcs tomcat_package do
+	package tomcat_package
+	build tomcat_build
+	release tomcat_release
+	lifecycle tomcat_lifecycle
+	action :install
+end
 		
-	hcmbcs tomcat_package do
-	  package tomcat_package
-	  build tomcat_build
-	  release tomcat_release
-	  lifecycle tomcat_lifecycle
-	  action :install
-	end
-		
-	link "#{catalina_home}" do
-	  target_file "#{catalina_home}"
-	  to "#{tomcat_install}"
-	end
+link "#{catalina_home}" do
+  target_file "#{catalina_home}"
+  to "#{tomcat_install}"
+end
 	
-	bash "chown_files" do
-		code <<-EOH
-			chmod -R go+r  "#{catalina_home}"
-			chmod go-r "#{catalina_home}/conf/tomcat-users.xml"
-		EOH
-	end
-	
-	
+bash "chown_files" do
+	code <<-EOH
+		chmod -R go+r  "#{catalina_home}"
+		chmod go-r "#{catalina_home}/conf/tomcat-users.xml"
+	EOH
 end
