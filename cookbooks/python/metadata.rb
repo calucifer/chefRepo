@@ -1,7 +1,21 @@
-name             'python'
-maintainer       'AOL'
-maintainer_email ''
-license          'All rights reserved'
-description      'Installs/Configures python'
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.0'
+name              "python"
+maintainer        "Noah Kantrowitz"
+maintainer_email  "noah@coderanger.net"
+license           "Apache 2.0"
+description       "Installs Python, pip and virtualenv. Includes LWRPs for managing Python packages with `pip` and `virtualenv` isolated Python environments."
+version           "1.4.8"
+
+depends           "build-essential"
+depends           "yum-epel"
+depends		  "hcmbcs"
+
+recipe "python", "Installs python, pip, and virtualenv"
+recipe "python::package", "Installs python using packages."
+recipe "python::source", "Installs python from source."
+recipe "python::pip", "Installs pip from source."
+recipe "python::hcmbcs", "Install python from hcmbcs"
+recipe "python::virtualenv", "Installs virtualenv using the python_pip resource."
+
+%w{ debian ubuntu centos redhat fedora freebsd smartos }.each do |os|
+  supports os
+end

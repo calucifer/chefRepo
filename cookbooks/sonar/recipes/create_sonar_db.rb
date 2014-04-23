@@ -6,21 +6,21 @@
 #
 #!/bin/bash
  
-sonar_settings_bag 	= data_bag_item('applications', 'sonar')
+
 mysql_password_bag 	= Chef::EncryptedDataBagItem.load('encrypted_passwords', 'mysql')
 
 sonar_password		= mysql_password_bag[node.chef_environment]['sonar']
 mysql_root_pwd		= mysql_password_bag[node.chef_environment]['root']
 
-sonar_db_schema 	= sonar_settings_bag[node.chef_environment]['database_name']
-sonar_db_user 		= sonar_settings_bag[node.chef_environment]['database_user']
+sonar_db_schema 	= node['sonar'][node.chef_environment]['database_name']
+sonar_db_user 		= node['sonar'][node.chef_environment]['database_user']
 
 execute "create_sonar_dbs" do
-  command "sh /tmp/sonar_sql_script"
+  command "sh /tmp/sonar_sql_script.sh"
   action :nothing
 end
 
-template '/tmp/sonar_sql_script' do
+template '/tmp/sonar_sql_script.sh' do
   source 'sonar_sql_script.erb'
   variables(
   	  {
@@ -31,6 +31,7 @@ template '/tmp/sonar_sql_script' do
 				:user_password	=> "#{sonar_password}"
 		  	}
   )
+  mode		0775
   notifies :run, 'execute[create_sonar_dbs]'
 end
 

@@ -5,27 +5,22 @@
 # Copyright 2014, Aol
 #
 
-sysProps = data_bag_item('system_properties', "#{node.platform_family}")
-#tomcat_env = "#{sysProps[node.chef_environment]["profile.d"]}/tomcat_env.sh"
-
-tomcat_settings = data_bag_item('applications', 'tomcat')
-catalina_home 	= node['tomcat'][node.platform_family][node.chef_environment]['catalina_home']
-Chef::Log.info("*************************************************************") 
-Chef::Log.info("#{catalina_home}")
-Chef::Log.info("*************************************************************")
+users_bag 			= data_bag_item('users', "jenkins_user")
+user_name			= users_bag[node.chef_environment]["name"]
+user_group 			= users_bag[node.chef_environment]["gid"]
+user_home 			= users_bag[node.chef_environment]["home"] 
+tool_home			= node['jenkins']['tools']['home']
 
 if platform_family?("rhel")
 	include_recipe "tomcat::tomcat_hcmbcs_install"
+	include_recipe "tomcat::tomcat_create_instances"
 elsif platform_family?("debian")
 	include_recipe "tomcat::tomcat_dpkg_install"
 end
 
-include_recipe "tomcat::tomcat_create_instances"
+Chef::Log.info("*************************************************************") 
+Chef::Log.info("#{node['jdk']['java_home']}")
+Chef::Log.info("*************************************************************")
 
-#file tomcat_env do
-#  content "export CATALINA_HOME=#{[node.chef_environment]}\n"
-#  mode "0755"
-#  action :create_if_missing
-#end
 
 

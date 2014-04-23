@@ -1,6 +1,10 @@
 maven CHANGELOG
 ===============
 This file is used to list changes made in each version of the maven cookbook.
+0.1.4(22-04-2014)
+-----
+- [Steven Satelle] - updated maven settings file - removed mirrors and changed around profiles, to make repos as on tacoda host (issues doenloading poms without this) 
+
 0.1.3(11-03-2014)
 -----
 - [Steven Satelle] - updated maven settings file to include thucydides repo

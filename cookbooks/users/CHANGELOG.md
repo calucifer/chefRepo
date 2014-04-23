@@ -1,7 +1,22 @@
 jenkins_user CHANGELOG
 ======================
 
-This file is used to list changes made in each version of the jenkins_user cookbook.
+0.1.6 (10-04-2014)
+-----
+- [Steven Satelle] - Pulled all the extra scripts out of this cookbook as was getting a bit ridiculous - put them into the extra scripts cookbook 
+
+0.1.5 (08-04-2014)
+-----
+- [Steven Satelle] - Added selenium server setup to this cookbook for the jenkins_user
+
+0.1.4 (08-04-2014)
+-----
+- [Steven Satelle] - Added in the creation of the atp_components_dir + setting global env vars for atp_components_dir and jenkins_cicd_home 
+
+0.1.3 (24-03-2014)
+-----
+- [Steven Satelle] - Added in steps to create the bin and tools dir in the user home for the jenkins user, also create the ssh known_hosts files containing the stash keys - IF IT DOESNT ALREADY EXIST 
+					 Adds a script to /etc/rc.local to startup any sh files in the users ~/bin folder
 
 0.1.2 (26-02-2014)
 -----

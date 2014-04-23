@@ -5,13 +5,13 @@
 # Copyright 2014, Aol
 #
 
-tomcat_build 	= node['tomcat']['rhel']['install']['build']
-tomcat_package	= node['tomcat']['rhel']['install']['package']
-tomcat_release 	= node['tomcat']['rhel']['install']['release']
-tomcat_lifecycle	= node['tomcat']['rhel']['install']['lifecycle']
+tomcat_build 		= node['tomcat'][node.platform_family][node.chef_environment]['install']['build']
+tomcat_package		= "#{node['tomcat'][node.platform_family][node.chef_environment]['install']['package']}#{node['tomcat'][node.platform_family][node.chef_environment]['install']['version']}"
+tomcat_release 		= node['tomcat'][node.platform_family][node.chef_environment]['install']['release']
+tomcat_lifecycle	= node['tomcat'][node.platform_family][node.chef_environment]['install']['lifecycle']
 
-tomcat_install 	= node['tomcat']['rhel']['install']['tomcat_install']
-catalina_home 	= node['tomcat']['rhel']['cicd']['catalina_home']
+tomcat_install 		= node['tomcat'][node.platform_family][node.chef_environment]['install']['tomcat_install']
+catalina_home 		= node['tomcat'][node.platform_family][node.chef_environment]['catalina_home']
 
 hcmbcs tomcat_package do
 	package tomcat_package
@@ -20,7 +20,7 @@ hcmbcs tomcat_package do
 	lifecycle tomcat_lifecycle
 	action :install
 end
-		
+	
 link "#{catalina_home}" do
   target_file "#{catalina_home}"
   to "#{tomcat_install}"

@@ -9,9 +9,16 @@ users_bag 			= data_bag_item('users', "jenkins_user")
 user_name			= users_bag[node.chef_environment]["name"]
 user_group 			= users_bag[node.chef_environment]["gid"]
 user_home 			= users_bag[node.chef_environment]["home"] 
+java_home			= "#{node['jdk']['java_home']}"
+
+# will hold the startup lines for the instances
+tomcat_start_commands = ""
+tomcat_stop_commands = ""
+
 
 catalina_home 		= node['tomcat'][node.platform_family][node.chef_environment]['catalina_home']
-catalina_base_parent	=node['tomcat'][node.platform_family][node.chef_environment]['catalina_base_folder']
+catalina_base_parent	= node['tomcat']['instance'][node.chef_environment]['catalina_base_folder']
+
 
 directory "#{user_home}/#{catalina_base_parent}" do
 	owner	"#{user_name}"
@@ -19,8 +26,10 @@ directory "#{user_home}/#{catalina_base_parent}" do
 	action	:create
 end;
 
-['tomcat_ingestor', 'tomcat_atp-api'].each do |instance|
+['ingestor', 'atp-api'].each do |instance|
 	catalina_base	= 	"#{user_home}/#{catalina_base_parent}/#{instance}"
+	tomcat_start_commands += "../#{catalina_base_parent}/#{instance}/bin/startup.sh\n"
+	tomcat_stop_commands += "../#{catalina_base_parent}/#{instance}/bin/shutdown.sh\n"
 	bash "create_tomcat_instance" do
 		user 	"#{user_name}"
 		group 	"#{user_group}"
@@ -28,7 +37,8 @@ end;
 		environment	(
 						{
 							"CATALINA_BASE" => "#{catalina_base}",
-							"CATALINA_HOME" => "#{catalina_home}"
+							"CATALINA_HOME" => "#{catalina_home}",
+							"JAVA_HOME"		=> "#{java_home}"
 						}
 					)
 		code 	<<-EOH
@@ -36,6 +46,7 @@ end;
 			
 			create_startup_script() {
 				echo "#!/bin/sh"								> "${CATALINA_BASE}/bin/startup.sh";
+				echo "export JAVA_HOME=\"$JAVA_HOME\""			>> "${CATALINA_BASE}/bin/startup.sh";
 				echo "export CATALINA_BASE=\"$CATALINA_BASE\"" 	>> "${CATALINA_BASE}/bin/startup.sh";
 				echo "${CATALINA_HOME}/bin/startup.sh" 			>> "${CATALINA_BASE}/bin/startup.sh";
 				echo "echo \"Tomcat started\"" 					>>  "${CATALINA_BASE}/bin/startup.sh";
@@ -83,19 +94,62 @@ end;
 			cp  -rf "${CATALINA_HOME}/webapps/manager" "${CATALINA_BASE}/webapps/";
 		EOH
 	end
+	
 	cookbook_file "tomcat-users.xml" do
 		path 	"#{catalina_base}/conf/tomcat-users.xml"
 		user 	"#{user_name}"
 		group 	"#{user_group}"
 		action	:create
 	end
-	cookbook_file "#{instance}-server.xml" do
+
+	template "#{catalina_base}/conf/server.xml" do
+		source 'server.xml.erb'
 		path	"#{catalina_base}/conf/server.xml"
 		user 	"#{user_name}"
 		group 	"#{user_group}"
+		variables(
+			{
+				:server_port	=> node['tomcat']['template'][node.chef_environment][instance]['server_port'],
+				:connector_port	=> node['tomcat']['template'][node.chef_environment][instance]['connector_port'],
+				:redirect_port	=> node['tomcat']['template'][node.chef_environment][instance]['redirect_port'],
+				:ajp_connector_port	=> node['tomcat']['template'][node.chef_environment][instance]['ajp_connector_port']
+			}
+		)
+	end
+	
+	template "#{catalina_base}/bin/setenv.sh" do
+		source 	"setenv.sh.erb"
+		user 	"#{user_name}"
+		group 	"#{user_group}"
+		mode	0755
 		action	:create
+		variables(
+			{
+				:jmxremote_port	=> node['tomcat']['template'][node.chef_environment][instance]['jmxremote_port']
+			}
+		)
 	end
 end
+
+# screate a startup script
+file "#{user_home}/#{node['tomcat']['tools']['startup_file']}" do
+	owner	"#{user_name}"
+	group	"#{user_group}"
+	mode	"0755"
+	content	"#{tomcat_start_commands}"
+	action	:create_if_missing
+end
+
+# and a shutdown script
+file "#{user_home}/#{node['tomcat']['tools']['shutdown_file']}" do
+	owner	"#{user_name}"
+	group	"#{user_group}"
+	mode	"0755"
+	content	"#{tomcat_stop_commands}"
+	action	:create_if_missing
+end
+
+	
 
 	
 

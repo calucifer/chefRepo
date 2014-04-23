@@ -10,7 +10,7 @@ gem_package "ruby-shadow" do
 end
 
 include_recipe "users::jenkins_user"
-include_recipe "users::jenkins_user_ssh_config"
+
 
 if node.chef_environment == "cicd" then 
 	include_recipe "users::ssatelle"

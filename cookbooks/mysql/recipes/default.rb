@@ -21,8 +21,13 @@ if platform_family?("debian")
 end
 
 
-	
-#execute "SetRootPasswd" do
-#	command	"#{node['mysql']['root_passwd_cmd']} \'#{node['mysql']['root_password']}\'"
-#	action	:run
-#end
+
+execute "SetRootPasswd" do
+	command	"#{node['mysql']['root_passwd_cmd']} \'#{node['mysql']['root_password']}\'"
+	action	:run
+	not_if { ::File.exists?("/root/.mysqlRootPasswordSet")}
+end
+
+file "/root/.mysqlRootPasswordSet" do
+	action	:create
+end

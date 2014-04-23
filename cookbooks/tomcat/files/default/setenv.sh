@@ -1,0 +1,2 @@
+JAVA_OPTS="$JAVA_OPTS -Xms4G -Xmx4G -XX:MaxPermSize=1G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
+CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=7009 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true -Djava.rmi.server.hostname=10.149.11.204"

@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+# starting all tasks in <%= @user %>'s bin folder
+cd <%= @user_bin %>;
+for task in `ls start*.sh`;
+do
+	echo "Starting ${task}";
+	su <%= @user %> -c "./${task}";
+done;
+cd ${OLDPWD};
+touch /var/lock/subsys/local
